@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "spring.mqtt.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.mqtt.username.",
+      "defaultValue": "backend"
+    },
+    {
+      "name": "spring.mqtt.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.mqtt.username.",
+      "defaultValue": "123"
+    },
+    {
+      "name": "spring.mqtt.url",
+      "type": "java.lang.String",
+      "description": "Description for spring.mqtt.username.",
+      "defaultValue": "tcp://127.0.0.1:1884"
+    },
+    {
+      "name": "spring.mqtt.clientId",
+      "type": "java.lang.String",
+      "description": "Description for spring.mqtt.username.",
+      "defaultValue": "server"
+    },
+    {
+      "name": "spring.mqtt.topic",
+      "type": "java.lang.String",
+      "description": "Description for spring.mqtt.username.",
+      "defaultValue": "record"
+    }
+  ] }
