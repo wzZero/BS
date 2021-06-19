@@ -25,6 +25,7 @@ public class MqttController {
         requestFactory.setConnectTimeout(10000);
         requestFactory.setReadTimeout(10000);
         client = new RestTemplate(requestFactory);
+        client.setErrorHandler(new MyResponseErrorHandler());
     }
 
     @RequestMapping("/")
@@ -38,10 +39,10 @@ public class MqttController {
         }
         HttpHeaders headers = new HttpHeaders();
         String authentication = "admin:public";
-        headers.set("authorization","Basic"+ Base64.getEncoder().encodeToString(authentication.getBytes()));
-        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
-        ResponseEntity<User> response = client.exchange("http://127.0.0.1:8085/users/register",method,requestEntity,User.class);
-        System.out.println(response.getStatusCode());
+        headers.set("authorization","Basic "+ Base64.getEncoder().encodeToString(authentication.getBytes()));
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = client.exchange("http://localhost:18083/api/v4/nodes/emqx@127.0.0.1/metrics",method,requestEntity,String.class);
+//        System.out.println(response.getStatusCode());
     }
 
 }

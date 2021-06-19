@@ -1,14 +1,15 @@
 package bs.backend.user;
 
-import bs.backend.mqttServer.MqttController;
 import bs.backend.service.IUserService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
     @Resource
     private IUserService userService;
@@ -18,11 +19,13 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/login/{email}&{password}")
-    public User getUser(@PathVariable String email,@PathVariable String password ){
+    @RequestMapping("/login")
+    public User getUser(@RequestBody String body ){
         System.out.println("login");
-
-        return userService.findUserLogin(email,password);
+        String test = "{\"email\":\"8130100000\",\"password\":\"123456\",\"autoLogin\":true}";
+        JSONObject req = JSON.parseObject(body);
+        System.out.println(body);
+        return new User();
     }
 
     @RequestMapping("/register")

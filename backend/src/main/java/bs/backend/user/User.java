@@ -6,13 +6,13 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int uid;
+    private int uid = 1;
 
-    private String name;
+    private String name = "wzl";
 
-    private String email;
+    private String email = "3180102262@zju.edu.cn";
 
-    private String password;
+    private String password = "123";
 
     public User(){}
 

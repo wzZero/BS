@@ -12,14 +12,34 @@ class ClientItem{
     public int getPort(){return port;}
 }
 
+class Meta{
+    int count;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+}
+
 public class MqttData {
     List<ClientItem> items;
-
+    Meta meta;
     public void setItems(List<ClientItem> items) {
         this.items = items;
     }
 
     public List<ClientItem> getItems() {
         return items;
+    }
+
+    public Meta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(Meta meta) {
+        this.meta = meta;
     }
 }

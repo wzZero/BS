@@ -27,7 +27,7 @@ export class LoginStore{
     this.submitting = true;
     // const response = await accountLogin(params);
 
-    const response = {uid:"1",username:"wzl",email:"3180102262"};
+    const response = {uid:1,username:"wzl",email:"3180102262"};
 
     this.setUserLogin({message: 'ok'});
     this.baseStore.setBase({...response});
