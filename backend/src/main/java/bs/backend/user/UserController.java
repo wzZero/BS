@@ -1,8 +1,8 @@
 package bs.backend.user;
 
+import bs.backend.exception.ErrorEnum;
+import bs.backend.exception.ErrorRequest;
 import bs.backend.service.IUserService;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,33 +19,39 @@ public class UserController {
         return userService.findAll();
     }
 
-    @RequestMapping("/login")
-    public User getUser(@RequestBody String body ){
-        System.out.println("login");
-        String test = "{\"email\":\"8130100000\",\"password\":\"123456\",\"autoLogin\":true}";
-        JSONObject req = JSON.parseObject(body);
-        System.out.println(body);
-        return new User();
+    @PostMapping("/login")
+    public User getUser(@RequestBody User loginUser){  
+        User u;      
+        if((u = userService.findUserByEmailAndPwd(loginUser.getEmail(), loginUser.getPassword())) != null) {
+            u.setPassword("");
+            u.setEmail("");
+            return u;
+        }
+        else{
+            boolean exitUser = userService.findUserByEmail(loginUser.getEmail()).booleanValue();
+            if(exitUser){
+                throw new ErrorRequest(ErrorEnum.USER_ERROR_PASSWORD);
+            }
+            else{
+                throw new ErrorRequest(ErrorEnum.USER_NOT_FOUND);
+            }
+        }
     }
 
-    @RequestMapping("/register")
-    public User addUser(){
-        System.out.println("register");
-        // 当传入数据不带自增主键时，无论每次传入的数据是否一样都是直接insert，id自增1
-        // 当传入带自增主键时，如果数据不存在或者主键不存在，先select再insert；如果已存在则先select再update
-        User u = new User();
-        u.setName("wzl");
-        u.setEmail("3180102262@zju.edu.cn");
-        u.setPassword("123456");
-        return userService.addUser(u);
+    @PostMapping("/register")
+    public User addUser(@RequestBody User registerUser){
+        boolean exitEmail = userService.findUserByEmail(registerUser.getEmail()).booleanValue();
+        if(exitEmail){
+            throw new ErrorRequest(ErrorEnum.USER_SAME_EMAIL);
+        }
+        return userService.addUser(registerUser);
     }
 
     @RequestMapping("/edit")
     public User editUser(){
-        System.out.println("edit");
         User u = new User();
         u.setUid(2);
-        u.setName("wzl");
+        u.setUsername("wzl");
         u.setEmail("3180102262@zju.edu.cn");
         u.setPassword("123456");
         return userService.addUser(u);

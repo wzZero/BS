@@ -6,9 +6,9 @@ import { Alert } from 'antd';
 import React, {Component} from 'react';
 import ProForm, { ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import type { LoginParamsType } from '@/services/login';
-
+import {Link} from "react-router-dom"
 import styles from './index.less';
-import type {LoginStore} from "@/pages/Login/model";
+import type {UserStore} from "@/pages/User/model";
 import {inject, observer} from "mobx-react";
 
 const LoginMessage: React.FC<{
@@ -25,7 +25,7 @@ const LoginMessage: React.FC<{
 );
 
 interface LoginProps{
-  loginStore: LoginStore;
+  loginStore: UserStore;
 }
 
 @inject("loginStore")
@@ -107,6 +107,14 @@ export default class Login extends Component<LoginProps,any>{
           <ProFormCheckbox noStyle name="autoLogin">
             Auto login
           </ProFormCheckbox>
+          <Link
+            style={{
+              float: 'right',
+            }}
+            to = {'/user/register'}
+          >
+            no account?register
+          </Link>
         </div>
       </ProForm>
     </div>

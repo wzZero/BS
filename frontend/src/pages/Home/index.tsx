@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from "react";
+import {Component, useEffect, useState} from "react";
 import {Device, HomeStore} from "@/pages/Home/model";
 import {inject, observer} from "mobx-react";
 import {Card, Select} from "antd";
@@ -70,7 +70,7 @@ export default class Home extends Component<HomeProps,any>{
                 {getMapData?
                   getMapData.map((item) => (
                     <Marker
-                      position={{lng: item.longitude, lat:item.latitude}}
+                      position={{lng: item.lng, lat:item.lat}}
                       type={item.alert===1?"loc_red":"loc_blue"}
                       title={item.info}
                     />

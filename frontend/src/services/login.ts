@@ -5,8 +5,21 @@ export type LoginParamsType = {
   password: string;
 };
 
+export type RegisterParamsType = {
+  username: string;
+  password: string;
+  email: string;
+}
+
 export async function accountLogin(params: LoginParamsType) {
   return request('/api/user/login', {
+    method: 'POST',
+    data: params,
+  });
+}
+
+export async function register(params: RegisterParamsType){
+  return request('/api/user/register', {
     method: 'POST',
     data: params,
   });

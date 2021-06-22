@@ -1,7 +1,6 @@
 package bs.backend.mqttServer;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.internal.wire.MqttConnect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +18,15 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
+import bs.backend.record.Record;
+import bs.backend.service.ImplRecordService;
+
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
+import java.sql.Timestamp;
+
+import javax.annotation.Resource;
+
+import com.alibaba.fastjson.JSONObject;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -30,6 +36,10 @@ public class MqttSubscribeConfig {
     public static final String CHANNEL_NAME = "mqttInboundChannel";
     // last message
     private static final byte[] WILL_DATA;
+
+    @Resource
+    ImplRecordService recordService;
+
     static {
         WILL_DATA = "offline".getBytes(StandardCharsets.UTF_8);
     }
@@ -82,16 +92,38 @@ public class MqttSubscribeConfig {
         return adapter;
     }
 
+    int getDeviceId(String clientId){
+        String id = clientId.substring(clientId.length()-4,clientId.length());
+        return Integer.parseInt(id);
+    }
+
+
     @Bean
     @ServiceActivator(inputChannel = CHANNEL_NAME)
     public MessageHandler handler(){
         return new MessageHandler() {
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
-                System.out.println("topic:"+topic);
 //                String topicRecord =  Objects.requireNonNull(message.getHeaders().get("record")).toString();
                 String msg = message.getPayload().toString();
+                JSONObject jsonObj = JSONObject.parseObject(msg);
                 System.out.println(msg);
+                short alert = (short)jsonObj.getIntValue("alert");
+                int value = jsonObj.getIntValue("value");
+                String clientId  = jsonObj.getString("clientId");
+                String info = jsonObj.getString("info");
+                double lat = jsonObj.getDouble("lat");
+                double lng = jsonObj.getDouble("lng");
+                Timestamp moment = jsonObj.getTimestamp("timestamp");
+                Record record = new Record();
+                record.setAlert(alert);
+                record.setInfo(info);
+                record.setLat(lat);
+                record.setLng(lng);
+                record.setMoment(moment);
+                record.setValue(value);
+                record.setDevid(getDeviceId(clientId));
+                recordService.createRecord(record);
             }
         };
     }

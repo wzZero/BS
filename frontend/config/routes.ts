@@ -14,8 +14,13 @@
               {
                 name: 'login',
                 path: '/user/login',
-                component: './Login',
+                component: './User/Login',
               },
+              {
+                name:'register',
+                path: '/user/register',
+                component: './User/Register',
+              }
             ],
           },
           {

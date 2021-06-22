@@ -1,7 +1,7 @@
 import type {BaseStore} from "@/pages/store";
 import {action, computed, observable} from "mobx";
 import {cloneDeep} from "lodash"
-import {getDevice, getRecord, getRecordByDevice, getStatus} from "@/services/device";
+import {getDevice, getRecordByDevice, getStatus} from "@/services/device";
 import {message} from "antd";
 
 type Statistic = {
@@ -12,13 +12,14 @@ type Statistic = {
 
 export type Device = {
   id: number,
-  device_name: string
+  device_name: string,
+  device_type: 'phone' | 'laptop' | 'air-conditioner'
 }
 
 export type Record = {
   id: number,
-  longitude: number,
-  latitude: number,
+  lng: number,
+  lat: number,
   moment: string,
   alert: number,
   info: string,
@@ -46,7 +47,6 @@ export class HomeStore{
       return [totalNum,onlineNum,receivedNum];
     }
 
-      message.error("no data");
       return [0,0,0];
   }
 
@@ -79,7 +79,7 @@ export class HomeStore{
   }
 
   getDevice = async ()=>{
-    const response = await getDevice(this.baseStore.uid);
+    const response = await getDevice();
     this.setDeviceList(response);
   }
 

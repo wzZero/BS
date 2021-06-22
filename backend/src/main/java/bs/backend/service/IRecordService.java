@@ -1,6 +1,5 @@
 package bs.backend.service;
 
-import bs.backend.device.Device;
 import bs.backend.record.Record;
 
 import java.util.List;

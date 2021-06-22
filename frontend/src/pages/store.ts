@@ -1,5 +1,5 @@
 import {HomeStore} from "@/pages/Home/model";
-import {LoginStore} from "@/pages/Login/model";
+import {UserStore} from "@/pages/User/model";
 import {DeviceStore} from "@/pages/Device/model";
 import {action, observable} from "mobx";
 
@@ -26,6 +26,6 @@ const baseStore = new BaseStore();
 export default {
   baseStore,
   homeStore: new HomeStore(baseStore),
-  loginStore: new LoginStore(baseStore),
+  loginStore: new UserStore(baseStore),
   deviceStore: new DeviceStore(baseStore)
 }

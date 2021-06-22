@@ -6,13 +6,13 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int uid = 1;
+    private int uid;
 
-    private String name = "wzl";
+    private String username;
 
-    private String email = "3180102262@zju.edu.cn";
+    private String email;
 
-    private String password = "123";
+    private String password;
 
     public User(){}
 
@@ -24,12 +24,13 @@ public class User {
         this.uid = value;
     }
 
-    public void setName(String value){
-        this.name = value;
+    public void setUsername(String value){
+        this.username = value;
     }
+    
 
-    public String getName(){
-        return name;
+    public String getUsername(){
+        return username;
     }
 
     public void setEmail(String value){

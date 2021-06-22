@@ -4,22 +4,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import bs.backend.user.User;
 
 @Entity
 public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int devid;
-    private String device_name;
-    private int uid;
+    private String deviceName;
+    private String deviceType;
+
+    private Integer uid;
 
     public int getDevid(){return devid;}
 
     public void setDevid(int value){this.devid = value;}
 
-    public String getDeviceName(){return device_name;}
+    public String getDeviceName(){return deviceName;}
 
-    public void setDeviceName(String value){this.device_name = value;}
+    public void setDeviceName(String value){this.deviceName = value;}
+
+    public String getDeviceType(){return deviceType;}
+
+    public void setDeviceType(String value){this.deviceType = value;}
 
     public int getUid(){return uid;}
 

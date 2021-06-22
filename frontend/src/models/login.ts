@@ -1,5 +1,5 @@
 import type { Reducer, Effect } from 'umi';
-import {StateType} from "@/pages/Login/model";
+import {StateType} from "@/pages/User/model";
 
 
 

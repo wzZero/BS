@@ -7,10 +7,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
+    Boolean existsByEmail(@Param("email") String email);
+ 
     // automatically implemented by JPA
     User findByEmailAndPassword(String email,String password);
 
     // except automatically implemented we can self-defined these query
     @Query(value = "from User u where u.uid = :uid")
     User findById(@Param("uid") int uid);
+
 }
