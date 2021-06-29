@@ -6,6 +6,7 @@ import styles from "@/pages/User/Login/index.less";
 import ProForm, {ProFormText} from "@ant-design/pro-form";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {Alert} from "antd";
+import {Link} from "react-router-dom"
 
 interface RegisterProps{
   loginStore: UserStore;
@@ -132,7 +133,16 @@ export default class Login extends Component<RegisterProps,any>{
               />
             </>
           }
+          <Link
+            style={{
+              float: 'right',
+            }}
+            to = {'/user/login'}
+          >
+            back to login
+          </Link>
         </ProForm>
+        
       </div>
     );}
 

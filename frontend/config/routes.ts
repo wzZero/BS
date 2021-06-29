@@ -43,7 +43,7 @@
                     component: './Home',
                   },
                   {
-                    path: '/device',
+                    path: '/device/:devid',
                     name: 'device',
                     icon: 'smile',
                     component: './Device',

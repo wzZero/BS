@@ -28,9 +28,19 @@ export class UserStore{
   @action login = async (params: LoginParamsType)=>{
     this.submitting = true;
     const response = await accountLogin(params);
+    console.log("responseLogin",response)
 
-    // const response = {uid:1,username:"wzl",email:"3180102262"};
-    if(!response.status || `${response.status}`.indexOf('2') === 0){
+      // this.setUserLogin({message: 'ok'});
+      // this.baseStore.setBase({uid:1,username:'wzl'});
+      // setAuthority('user');
+      // message.success("🎇login successfully");
+      // history.replace('/')
+
+    if( (!response.status || response.status.indexOf('2')!==0) && response.state === "error"){
+      message.error(response.message);
+      this.setUserLogin({message: 'error'});
+    }
+    else if(!response.status || response.status.indexOf('2')!==0){
       this.setUserLogin({message: 'ok'});
       this.baseStore.setBase({...response});
       setAuthority('user');
@@ -38,7 +48,6 @@ export class UserStore{
       history.replace('/')
     }
     else{
-      message.error(response.message);
       this.setUserLogin({message: 'error'});
     }
 
@@ -55,14 +64,14 @@ export class UserStore{
   @action register = async (params: RegisterParamsType)=>{
     this.registering = true;
     const response = await register(params);
-    if(!response.status || `${response.status}`.indexOf('2') === 0){
+    if(response.state === "error"){
+      message.error(response.message);
+    }
+    else{
       this.baseStore.setBase({...response});
       setAuthority('user');
       message.success("🎇register successfully");
       history.replace('/')
-    }
-    else{
-      message.error(response.message);
     }
     this.registering = false;
   }

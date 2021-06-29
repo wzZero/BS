@@ -27,6 +27,3 @@ info varchar(100),
 devid int unsigned,
 primary key (recid)
 );
-
-constraint fk_user foreign key(uid) references User(uid)
-constraint fk_device foreign key(devid) references Device(devid)

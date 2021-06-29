@@ -27,11 +27,10 @@ const codeMessage: Record<number, string> = {
 const errorHandler = (error: { response: Response }): Response => {
   const { response } = error;
   if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
+    const errorText =  response.statusText  || codeMessage[response.status]  ;
     const { status, url } = response;
-
     notification.error({
-      message: `Request error ${status}: ${url}`,
+      message : `Request error ${status}: ${url}`,
       description: errorText,
     });
   } else if (!response) {

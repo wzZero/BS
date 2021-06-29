@@ -10,6 +10,7 @@ public interface IDeviceService {
     int countDevice(int uid);
     List<Device> findDeviceByUid(int uid);
     boolean exitDevice(int devid);
+    boolean exitDeviceByUid(int devid,int uid);
     Device createDevice(Device dev);
     Device editDevice(Device dev);
     void delDevice(int devid);

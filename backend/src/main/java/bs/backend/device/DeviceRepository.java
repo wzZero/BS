@@ -10,4 +10,7 @@ public interface DeviceRepository extends JpaRepository<Device, Integer> {
     
     @Query(value = "select count(*) from Device d where d.uid = :uid")
     int countDeviceByUid(int uid);
+
+    @Query(value = "select count(*) from Device d where d.devid = :devid and d.uid = :uid")
+    int exitDeviceByUid(int devid,int uid);
 }

@@ -21,7 +21,6 @@ import org.springframework.messaging.MessagingException;
 import bs.backend.record.Record;
 import bs.backend.service.ImplRecordService;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 
 import javax.annotation.Resource;
@@ -35,14 +34,14 @@ public class MqttSubscribeConfig {
     // subscribe name
     public static final String CHANNEL_NAME = "mqttInboundChannel";
     // last message
-    private static final byte[] WILL_DATA;
+    // private static final byte[] WILL_DATA;
 
     @Resource
     ImplRecordService recordService;
 
-    static {
-        WILL_DATA = "offline".getBytes(StandardCharsets.UTF_8);
-    }
+    // static {
+    //     WILL_DATA = "offline".getBytes(StandardCharsets.UTF_8);
+    // }
 
     @Value("${spring.mqtt.url}")
     private String brokerUrl;
@@ -65,7 +64,7 @@ public class MqttSubscribeConfig {
         mqttConnectOptions.setUserName(username);
         mqttConnectOptions.setPassword(password.toCharArray());
         mqttConnectOptions.setServerURIs(new String[]{brokerUrl});
-        mqttConnectOptions.setConnectionTimeout(10);
+        mqttConnectOptions.setConnectionTimeout(100);
         mqttConnectOptions.setKeepAliveInterval(30);    // judge if the client is online
         return mqttConnectOptions;
     }

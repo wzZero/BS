@@ -1,9 +1,11 @@
 package bs.backend.service;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
 import java.util.Base64;
 
+import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.springframework.http.*;
@@ -19,6 +21,9 @@ public class ImplMqttService implements IMqttService {
     public static RestTemplate client;
 
     public final String base = "http://localhost:8081";
+
+    @Resource
+    public IDeviceService deviceService;
 
     public ImplMqttService() {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -40,11 +45,29 @@ public class ImplMqttService implements IMqttService {
     }
 
     @Override
-    public int getOnline() throws IOException {
+    public int getOnline(int uid) throws IOException {
         String api = "/api/v4/clients/";
         ResponseEntity<String> res = SendRequest(api, HttpMethod.GET);
-        JSONObject meta = JSONObject.parseObject(res.getBody());
-        int count = meta.getJSONObject("meta").getIntValue("count")-1;
+        JSONObject data = JSONObject.parseObject(res.getBody());
+        JSONArray dataArray = data.getJSONArray("data");
+        int count = 0;
+
+        for (int i = 0;i<dataArray.size();i++) {
+            JSONObject item = dataArray.getJSONObject(i);
+            String clientid = item.getString("clientid");
+            String id = clientid.substring(clientid.length()-4,clientid.length());
+            try{
+                Integer devid = Integer.parseInt(id);
+                if(deviceService.exitDeviceByUid(devid, uid)){
+                    count++;
+                }
+            }
+            catch(Exception e){
+
+            }
+
+        }
+
         return count;
     }
 

@@ -24,11 +24,17 @@ public class ImplDeviceService implements IDeviceService {
     }
 
     public List<Device> findDeviceByUid(int uid){
-        return deviceRepository.findAllByUid(uid);
+        List<Device> ret =deviceRepository.findAllByUid(uid);
+        return ret;
     }
 
     public boolean exitDevice(int devid){
         return deviceRepository.existsById(devid);
+    }
+
+    public boolean exitDeviceByUid(int devid,int uid){
+        int count =  deviceRepository.exitDeviceByUid(devid, uid);
+        return count>0;
     }
 
     public Device createDevice(Device dev){

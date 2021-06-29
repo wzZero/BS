@@ -7,7 +7,6 @@ import bs.backend.service.IDeviceService;
 import bs.backend.service.IMqttService;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +41,7 @@ public class DeviceController {
         
         int online = 0;
         try{
-            online = mqttService.getOnline();
+            online = mqttService.getOnline(uid);
         }
         catch(IOException e){
             throw new ErrorRequest(ErrorEnum.DEVICE_ONLINE_ERROR);

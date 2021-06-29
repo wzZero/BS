@@ -8,7 +8,7 @@ type IProps = {
   modalVisible: boolean;
 }
 
-const CreateModal = (props:IProps)=>{
+const CreateModal = (props: IProps)=>{
   const [modalVisible, setModalVisible] = useState(props.modalVisible);
   useEffect(()=>{setModalVisible(props.modalVisible)},[props.modalVisible])
 
@@ -29,14 +29,14 @@ const CreateModal = (props:IProps)=>{
       onCancel={props.onHandleCancel}
     >
       <Form form = {form}>
-        <Form.Item label={'device_name'} name={"device_name"} rules={[{required: true}]}>
+        <Form.Item label={'DeviceName'} name={"deviceName"} rules={[{required: true}]}>
           <Input/>
         </Form.Item>
-        <Form.Item label={'device_type'} name={"device_type"} rules={[{required: true}]}>
+        <Form.Item label={'DeviceType'} name={"deviceType"} rules={[{required: true}]}>
           <Radio.Group>
-            <Radio value="phone">phone</Radio>
-            <Radio value="laptop">laptop</Radio>
-            <Radio value="air-conditioner">air-conditioner</Radio>
+            <Radio value="e-cooker">e-cooker</Radio>
+            <Radio value="washer">washer</Radio>
+            <Radio value="fridge">fridge</Radio>
           </Radio.Group>
         </Form.Item>
       </Form>

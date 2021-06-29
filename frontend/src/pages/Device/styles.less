@@ -2,7 +2,67 @@
 
 .device_item {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 30px;
   border-bottom: 1px solid #eeebeb;
+}
+
+.device_item_box{
+  width: 40%;
+}
+
+.record_head {
+  display: inline-flex;
+  flex-direction: row;
+  align-content: baseline;
+
+  width: 100%;
+  padding: 5px;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(226, 234, 236, 0.5);
+}
+
+.record_item {
+  display: inline-flex;
+  flex-direction: row;
+  align-self: baseline;
+  width: 100%;
+  height: 30px;
+  border-bottom: 1px solid lightgray;
+}
+
+.record_lat{
+  text-align: center;
+  width: 15%;
+}
+
+.record_lng{
+  text-align: center;
+  width: 15%;
+}
+
+.record_time{
+  text-align: center;
+  width: 20%;
+}
+
+.record_alert_1{
+  width: 10%;
+  text-align: center;
+  color: red;
+}
+
+.record_alert_0{
+  width: 10%;
+  text-align: center;
+}
+
+.record_info{
+  width: 30%;
+  text-align: center;
+}
+
+.record_value{
+  width:10%;
+  text-align: center;
 }

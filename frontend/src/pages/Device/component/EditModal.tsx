@@ -30,7 +30,7 @@ const EditModal = (props: IProps)=>{
     >
       <Card>
         <Form form = {form}>
-          <Form.Item label={'device_name'} name={"device_name"} initialValue={props.data?.device_name} rules={[{required: true}]}>
+          <Form.Item label={'DeviceName'} name={"deviceName"} initialValue={props.data?.device_name} rules={[{required: true}]}>
             <Input/>
           </Form.Item>
         </Form>
